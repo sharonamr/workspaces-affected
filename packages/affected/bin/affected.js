@@ -55,6 +55,7 @@ const packages = workspaces.reduce((acc, pattern) => {
 	});
 	return acc;
 }, {});
+console.log('packages:', Object.values(packages).map(({name}) => name));
 
 const affectedPackages = Object.values(packages).reduce((acc, pkg) => {
 	if (affectedFiles.some(file => file.startsWith(pkg.path))) {
