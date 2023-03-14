@@ -1,0 +1,14 @@
+{
+	"name": "workspaces-affected",
+	"version": "1.0.0",
+	"type": "module",
+	"bin": {
+		"workspaces-affected": "./bin/affected.js"
+	},
+	"files": [
+		"src"
+	],
+	"license": "MIT",
+	"dependencies": {
+	}
+}

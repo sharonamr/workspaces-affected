@@ -1,0 +1,12 @@
+node_modules
+dist
+
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tgz
