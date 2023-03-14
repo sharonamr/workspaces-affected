@@ -55,8 +55,8 @@ const packages = workspaces.reduce((acc, pattern) => {
 	});
 	return acc;
 }, {});
-console.log('packages:', Object.values(packages).map(({name}) => name));
-
+console.log('packages:', Object.values(packages).map(({name, path}) => ({name, path})));
+console.log('affectedFiles:', affectedFiles);
 const affectedPackages = Object.values(packages).reduce((acc, pkg) => {
 	if (affectedFiles.some(file => file.startsWith(pkg.path))) {
 		if(pkg.private !== true || parsedFlags['--withPrivate'] === true) {
