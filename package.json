@@ -2,9 +2,6 @@
   "name": "root",
   "private": true,
   "type": "module",
-  "scripts": {
-    "build": "echo build"
-  },
   "workspaces": [
     "packages/*"
   ],
