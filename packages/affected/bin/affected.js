@@ -18,14 +18,15 @@ export const spawn = (command, args, options = {}, shouldExit = true) => {
 	}
 };
 
-const args = process.argv.slice(2);
+const allArgs = process.argv.slice(2);
 const supportedArgs = [
 	'--base', 
 	'--withSide', 
 	'--withPrivate',
 ];
-const parsedFlags = flagsParser(supportedArgs, args);
+const [parsedFlags, args] = flagsParser(supportedArgs, allArgs);
 const base = parsedFlags['--base'];
+console.log('affected args:', parsedFlags);
 
 const affectedFiles = getAffectedFiles(base);
 
@@ -75,5 +76,5 @@ const allAffected = Array.from(new Set(affectedPackages, derivedAffectedPackages
 
 console.log('\nAffected workspaces packages:');
 console.log(allAffected.map(pkg => `- ${pkg}`).join('\n'));
-
+console.log('npm args:', args);
 spawn("npm", ['run', ...args, ...allAffected.map(pkg => `-w=${pkg}`)]);
