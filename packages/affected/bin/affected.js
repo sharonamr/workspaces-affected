@@ -75,5 +75,5 @@ const allAffected = Array.from(new Set(affectedPackages, derivedAffectedPackages
 
 console.log('\nAffected workspaces packages:');
 console.log(allAffected.map(pkg => `- ${pkg}`).join('\n'));
-console.log("npm", ['run', ...args, ...allAffected.map(pkg => `-w=${pkg}`)]);
+
 spawn("npm", ['run', ...args, ...allAffected.map(pkg => `-w=${pkg}`)]);

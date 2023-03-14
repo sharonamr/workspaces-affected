@@ -14,6 +14,6 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
       - name: Publish package to npm
-        run: npx publish-if-not-published
+        run: npx --workspaces publish-if-not-published
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

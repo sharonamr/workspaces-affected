@@ -4,7 +4,7 @@ This tool is providing support for running operations only on affected packages 
 
 ## Usage:
 ```
-npx workspaces-affected build --base master
+npx workspaces-affected@latest build --base master
 ```
 
 ### `base` flag

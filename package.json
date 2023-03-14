@@ -1,16 +1,12 @@
 {
-	"name": "workspaces-affected",
-	"version": "1.0.1",
-	"repository": "git@github.com:sharonamr/workspaces-affected.git",
-	"type": "module",
-	"bin": {
-		"workspaces-affected": "./bin/affected.js"
-	},
-	"files": [
-		"src"
-	],
-	"license": "MIT",
-	"dependencies": {
-		"glob": "^9.2.1"
-	}
+  "name": "root",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=18.0.0 <19.0.0"
+  }
 }
