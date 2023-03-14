@@ -1,0 +1,19 @@
+name: Publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Publish package to npm
+        run: npx --workspaces publish-if-not-published
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
