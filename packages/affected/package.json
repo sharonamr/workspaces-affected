@@ -1,6 +1,6 @@
 {
 	"name": "workspaces-affected",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"repository": "git@github.com:sharonamr/workspaces-affected.git",
 	"type": "module",
 	"bin": {
