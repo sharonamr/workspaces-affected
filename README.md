@@ -25,4 +25,4 @@ npx workspaces-affected --if-present build --base
 |---------------|----------|---------|-------------------------------------------------|
 | --base        | true     | master  | git ref to compare changes to.                  |
 | --withSide    | false    | false   | When true, listing also side affected packages. |
-| --withPrivate | false    | false   | When true, listing also private packages.       |
+| --with-private | false    | false   | When true, listing also private packages.       |
