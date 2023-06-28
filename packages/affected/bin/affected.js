@@ -22,7 +22,7 @@ const allArgs = process.argv.slice(2);
 const supportedArgs = {
 	'--base': 'string', 
 	'--with-side': 'boolean', 
-	'--with-private': 'boolean',
+	'--ignore-private': 'boolean',
 };
 const [parsedFlags, args] = flagsParser(supportedArgs, allArgs);
 const base = parsedFlags['--base'];
@@ -59,7 +59,7 @@ console.log('packages:', Object.values(packages).map(({name, path}) => ({name, p
 console.log('affectedFiles:', affectedFiles);
 const affectedPackages = Object.values(packages).reduce((acc, pkg) => {
 	if (affectedFiles.some(file => file.startsWith(pkg.path))) {
-		if(pkg.private !== true || parsedFlags['--with-private'] === true) {
+		if(pkg.private !== true || parsedFlags['--ignore-private'] !== true) {
 			acc.add(pkg.name);
 		}
 	}
