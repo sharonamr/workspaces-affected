@@ -19,11 +19,11 @@ export const spawn = (command, args, options = {}, shouldExit = true) => {
 };
 
 const allArgs = process.argv.slice(2);
-const supportedArgs = [
-	'--base', 
-	'--withSide', 
-	'--with-private',
-];
+const supportedArgs = {
+	'--base': 'string', 
+	'--with-side': 'boolean', 
+	'--with-private': 'boolean',
+};
 const [parsedFlags, args] = flagsParser(supportedArgs, allArgs);
 const base = parsedFlags['--base'];
 console.log('affected args:', parsedFlags);
@@ -66,7 +66,7 @@ const affectedPackages = Object.values(packages).reduce((acc, pkg) => {
 	return acc;
 }, new Set());
 
-const derivedAffectedPackages = parsedFlags['--withSide'] === true ? Object.values(packages).reduce((acc, pkg) => {
+const derivedAffectedPackages = parsedFlags['--with-side'] === true ? Object.values(packages).reduce((acc, pkg) => {
 	if (Object.keys(pkg.deps).some(dep => affectedPackages.has(dep))) {
 		acc.add(pkg.name);
 	}
@@ -77,9 +77,11 @@ const allAffected = Array.from(new Set(affectedPackages, derivedAffectedPackages
 
 console.log('\nAffected workspaces packages:');
 console.log(allAffected.map(pkg => `- ${pkg}`).join('\n'));
+const innerFlagsIndex = args.indexOf('--');
+args.splice(innerFlagsIndex, 0, ...allAffected.map(pkg => `-w=${pkg}`))
 console.log('npm args:', args);
 if (allAffected.length) {
-	spawn("npm", ['run', ...args, ...allAffected.map(pkg => `-w=${pkg}`)]);
+	spawn("npm", ['run', ...args]);
 } else {
 	console.log('No affected packages');
 }
