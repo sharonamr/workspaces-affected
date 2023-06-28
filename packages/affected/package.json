@@ -1,10 +1,11 @@
 {
 	"name": "workspaces-affected",
-	"version": "1.0.11",
+	"version": "1.0.12",
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://registry.npmjs.org/"
 	},
+	"homepage": "https://github.com/sharonamr/workspaces-affected#readme",
 	"repository": "git@github.com:sharonamr/workspaces-affected.git",
 	"type": "module",
 	"bin": {
