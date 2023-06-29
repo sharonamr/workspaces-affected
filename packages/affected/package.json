@@ -5,6 +5,9 @@
 		"access": "public",
 		"registry": "https://registry.npmjs.org/"
 	},
+	"keywords": [
+		"npm-workspaces", "github-actions", "lerna", "affected packages"
+	],
 	"homepage": "https://github.com/sharonamr/workspaces-affected#readme",
 	"repository": "git@github.com:sharonamr/workspaces-affected.git",
 	"type": "module",
