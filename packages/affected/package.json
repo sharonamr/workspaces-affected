@@ -1,12 +1,15 @@
 {
 	"name": "workspaces-affected",
-	"version": "1.0.12",
+	"version": "1.0.13",
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://registry.npmjs.org/"
 	},
 	"keywords": [
-		"npm-workspaces", "github-actions", "lerna", "affected packages"
+		"npm-workspaces",
+		"github-actions",
+		"lerna",
+		"affected packages"
 	],
 	"homepage": "https://github.com/sharonamr/workspaces-affected#readme",
 	"repository": "git@github.com:sharonamr/workspaces-affected.git",
