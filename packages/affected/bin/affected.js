@@ -29,7 +29,7 @@ const [parsedFlags, args] = flagsParser(supportedArgs, allArgs);
 const base = parsedFlags['--base'];
 console.log('affected args:', parsedFlags);
 
-const ignoredFiles = glob.sync(parsedFlags['--ignore-pattern']);
+const ignoredFiles = parsedFlags['--ignore-pattern'] ? glob.sync(parsedFlags['--ignore-pattern']) : [];
 const affectedFiles = getAffectedFiles(base);
 
 export const getFileContent = (filePath) => {
