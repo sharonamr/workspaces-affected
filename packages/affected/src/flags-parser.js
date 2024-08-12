@@ -3,9 +3,9 @@ export const flagsParser = (supportedFlags, args) => {
 	const parsed = Object.entries(supportedFlags).reduce((flagsAcc, [flag, flagType]) => {
 		const value = args.reduce((acc, arg, index) => {
 			if (arg === flag) {
-				usedArgs.push(arg);
 				let argValue = args[index + 1];
 				if (flagType === 'boolean') {
+					usedArgs.push(arg);
 					if (argValue === 'true') {
 						argValue = true;
 					} else if (argValue === 'false') {
@@ -13,6 +13,8 @@ export const flagsParser = (supportedFlags, args) => {
 					} else {
 						argValue = true;
 					}
+				} else {
+					usedArgs.push(arg, args[index + 1]);
 				}
 				acc = argValue;
 			} else if (arg.startsWith(`${flag}=`)) {

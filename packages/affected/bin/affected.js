@@ -23,11 +23,13 @@ const supportedArgs = {
 	'--base': 'string', 
 	'--with-side': 'boolean', 
 	'--ignore-private': 'boolean',
+	'--ignore-pattern': 'string',
 };
 const [parsedFlags, args] = flagsParser(supportedArgs, allArgs);
 const base = parsedFlags['--base'];
 console.log('affected args:', parsedFlags);
 
+const ignoredFiles = glob.sync(parsedFlags['--ignore-pattern']);
 const affectedFiles = getAffectedFiles(base);
 
 export const getFileContent = (filePath) => {
@@ -56,9 +58,13 @@ const packages = workspaces.reduce((acc, pattern) => {
 	return acc;
 }, {});
 console.log('packages:', Object.values(packages).map(({name, path}) => ({name, path})));
-console.log('affectedFiles:', affectedFiles);
+console.log('Affected files:', affectedFiles);
+console.log('Ignored files:', ignoredFiles);
+
 const affectedPackages = Object.values(packages).reduce((acc, pkg) => {
-	if (affectedFiles.some(file => file.startsWith(pkg.path))) {
+	if (affectedFiles
+		.filter(file => !ignoredFiles.includes(file))
+		.some(file => file.startsWith(pkg.path))) {
 		if(pkg.private !== true || parsedFlags['--ignore-private'] !== true) {
 			acc.add(pkg.name);
 		}

@@ -56,3 +56,4 @@ npx workspaces-affected build --base COMMIT_ID --ignore-private
 | --base        | true     | master  | git ref to compare changes to.                  |
 | --with-side    | false    | false   | When true, listing also side affected packages. |
 | --ignore-private | false    | false   | When true, private packages will be ignored.       |
+| --ignore-pattern | false    | ""   |  Glob pattern to be ignored when fetching affected files.       |
