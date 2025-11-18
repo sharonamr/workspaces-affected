@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import fs from 'fs';
+import fs, { writeFileSync } from 'fs';
 import glob from 'glob';
 import { getAffectedFiles } from '../src/utils.js';
 /* eslint-disable security/detect-child-process */
@@ -20,8 +20,8 @@ export const spawn = (command, args, options = {}, shouldExit = true) => {
 
 const allArgs = process.argv.slice(2);
 const supportedArgs = {
-	'--base': 'string', 
-	'--with-side': 'boolean', 
+	'--base': 'string',
+	'--with-side': 'boolean',
 	'--ignore-private': 'boolean',
 	'--ignore-pattern': 'string',
 };
@@ -57,7 +57,7 @@ const packages = workspaces.reduce((acc, pattern) => {
 	});
 	return acc;
 }, {});
-console.log('packages:', Object.values(packages).map(({name, path}) => ({name, path})));
+console.log('packages:', Object.values(packages).map(({ name, path }) => ({ name, path })));
 console.log('Affected files:', affectedFiles);
 console.log('Ignored files:', ignoredFiles);
 
@@ -65,8 +65,8 @@ const affectedPackages = Object.values(packages).reduce((acc, pkg) => {
 	if (affectedFiles
 		.filter(file => !ignoredFiles.includes(file))
 		.some(file => file.startsWith(pkg.path))) {
-		if(pkg.private !== true || parsedFlags['--ignore-private'] !== true) {
-			acc.add(pkg.name);
+		if (pkg.private !== true || parsedFlags['--ignore-private'] !== true) {
+			acc.add({ name: pkg.name, path: pkg.path });
 		}
 	}
 	return acc;
@@ -74,20 +74,31 @@ const affectedPackages = Object.values(packages).reduce((acc, pkg) => {
 
 const derivedAffectedPackages = parsedFlags['--with-side'] === true ? Object.values(packages).reduce((acc, pkg) => {
 	if (Object.keys(pkg.deps).some(dep => affectedPackages.has(dep))) {
-		acc.add(pkg.name);
+		acc.add({ name: pkg.name, path: pkg.path });
 	}
 	return acc;
 }, new Set()) : new Set();
 
+derivedAffectedPackages.add({
+	"name": "workspaces-affected",
+	"path": "packages/affected"
+});
+
 const allAffected = Array.from(new Set(affectedPackages, derivedAffectedPackages));
 
 console.log('\nAffected workspaces packages:');
-console.log(allAffected.map(pkg => `- ${pkg}`).join('\n'));
+console.log(allAffected.map(pkg => `- ${pkg.name}`).join('\n'));
 const innerFlagsIndex = args.indexOf('--');
-args.splice(innerFlagsIndex, 0, ...allAffected.map(pkg => `-w=${pkg}`))
+args.splice(innerFlagsIndex, 0, ...allAffected.map(pkg => `-w=${pkg.name}`))
 console.log('npm args:', args);
-if (allAffected.length) {
-	spawn("npm", ['run', ...args]);
+if (args.length > 1) {
+	if (allAffected.length) {
+		spawn("npm", ['run', ...args]);
+	} else {
+		console.log('No affected packages');
+	}
 } else {
-	console.log('No affected packages');
+	console.log('No npm args');
 }
+
+writeFileSync('affected.json', JSON.stringify(allAffected, null, 2));

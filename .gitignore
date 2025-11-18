@@ -10,3 +10,5 @@ dist
 *.sw?
 
 *.tgz
+
+affected.json
