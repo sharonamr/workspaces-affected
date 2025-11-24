@@ -1,6 +1,6 @@
 {
 	"name": "workspaces-affected",
-	"version": "1.0.18",
+	"version": "1.0.19",
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://registry.npmjs.org/"
