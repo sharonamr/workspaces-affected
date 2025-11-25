@@ -1,7 +1,8 @@
 import { spawnSync } from 'child_process';
 
 export const getAffectedFiles = base => {
-	const ret = spawnSync('git', `diff-tree --no-commit-id --name-only -r ${base} HEAD`.split(' '), {
+	console.log('running git command:', `diff --name-only ${base}...HEAD`);
+	const ret = spawnSync('git', `diff --name-only ${base}...HEAD`.split(' '), {
     cwd: process.cwd(),
 		stdio: 'pipe',
     encoding: 'utf-8',
