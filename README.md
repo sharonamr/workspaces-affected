@@ -13,6 +13,12 @@ base can be any git ref, for example:
 npx workspaces-affected build --base COMMIT_ID
 ```
 
+### `--head` flag
+head is optional and defaults to HEAD. It can be any git ref, for example:
+```
+npx workspaces-affected build --base origin/master --head feature-branch
+```
+
 ## npm workspaces support
 This example is showing usage of `--is-present` flag and also passing `--coverage` to `test` script:
 ```
@@ -53,7 +59,8 @@ npx workspaces-affected build --base COMMIT_ID --ignore-private
 
 | Flag          | Required | Default | Description                                     |
 |---------------|----------|---------|-------------------------------------------------|
-| --base        | true     | master  | git ref to compare changes to.                  |
+| --base        | true     | master  | git ref to compare changes from.                  |
+| --head        | false    | HEAD    | git ref to compare changes to.                  |
 | --with-side    | false    | false   | When true, listing also side affected packages. |
 | --ignore-private | false    | false   | When true, private packages will be ignored.       |
 | --ignore-pattern | false    | ""   |  Glob pattern to be ignored when fetching affected files.       |

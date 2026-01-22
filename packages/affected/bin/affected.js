@@ -21,16 +21,18 @@ export const spawn = (command, args, options = {}, shouldExit = true) => {
 const allArgs = process.argv.slice(2);
 const supportedArgs = {
 	'--base': 'string',
+	'--head': 'string',
 	'--with-side': 'boolean',
 	'--ignore-private': 'boolean',
 	'--ignore-pattern': 'string',
 };
 const [parsedFlags, args] = flagsParser(supportedArgs, allArgs);
 const base = parsedFlags['--base'];
+const head = parsedFlags['--head'];
 console.log('affected args:', parsedFlags);
 
 const ignoredFiles = parsedFlags['--ignore-pattern'] ? glob.sync(parsedFlags['--ignore-pattern']) : [];
-const affectedFiles = getAffectedFiles(base);
+const affectedFiles = getAffectedFiles(base, head);
 
 export const getFileContent = (filePath) => {
 	const buffer = fs.readFileSync(filePath);
