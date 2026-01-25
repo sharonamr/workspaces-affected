@@ -16,8 +16,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
           registry-url: https://registry.npmjs.org
+      - name: Debug npm config location
+        run: |
+          npm config get userconfig
+          npm config get registry
       - name: Publish package to npm
         run: |
           cp README.md packages/affected/
