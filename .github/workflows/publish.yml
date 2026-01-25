@@ -15,15 +15,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
-
+      - run: npm i -g npm@11
       - name: Write clean npmrc
         run: echo "registry=https://registry.npmjs.org/" > "$NPM_CONFIG_USERCONFIG"
-
       - name: Publish package to npm (OIDC)
         env:
           NODE_AUTH_TOKEN: ""
